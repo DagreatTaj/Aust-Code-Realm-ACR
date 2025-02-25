@@ -1,1 +1,2 @@
-# Aust-Code-Realm-ACR
+# AUST-CODE-REALM
+CSE3100 project

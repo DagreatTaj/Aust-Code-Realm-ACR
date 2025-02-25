@@ -1,0 +1,50 @@
+.profile-section {
+    background: #f9f9f9;
+    padding: 20px 0;
+}
+.profile-section h2, .profile-section h3, .profile-section h4 {
+    color: #00A859;
+}
+.profile-section p, .profile-section a {
+    color: #333;
+}
+.profile-section img {
+    border: 3px solid #00A859;
+}
+
+#profile-img{
+    max-width: 350px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+.user-details {
+    text-align: left;
+    margin-top: 20px;
+}
+.user-details p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+.container-graph {
+    max-width: 730px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 100%;
+}
+@media (max-width: 1000px) {
+    span {
+        display: block;
+        word-wrap:break-word;
+        width: 200px;
+        white-space: normal;
+    }
+    .container-graph {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
