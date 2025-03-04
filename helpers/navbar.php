@@ -2,9 +2,14 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+date_default_timezone_set('Asia/Dhaka'); // Set timezone
+$tz=date_default_timezone_get();
+$ini_tz=ini_get('date.timezone');
 $basePath = 'http://localhost/AUST%20CODE%20REALM/';
 $isLoggedIn = isset($_SESSION['user']);
 $handle = $isLoggedIn ? $_SESSION['user']['Handle'] : 'Guest User';
+$serverTime = time(); // Get server's current time in seconds since the Unix Epoch
+$gmtOffset = date('P'); // Get server's GMT offset
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light">
@@ -23,10 +28,8 @@ $handle = $isLoggedIn ? $_SESSION['user']['Handle'] : 'Guest User';
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $basePath; ?>pages/problemSet.php">Problems</a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="<?php echo $basePath; ?>pages/courses/courses.php">Courses</a>
-
             </li>
         <?php if(($isLoggedIn) && $_SESSION['user']['User_Role']=='admin'): ?>
             <li class="nav-item">
@@ -52,6 +55,42 @@ $handle = $isLoggedIn ? $_SESSION['user']['Handle'] : 'Guest User';
         <a class="btn btn-primary" id="loginbtn" href="<?php echo $basePath; ?>pages/login.php">Login</a>
     <?php endif; ?>
 </nav>
+
+<a href="https://www.timeanddate.com/worldclock/" target="_blank">
+    <div id="clock" class="text-center mb-4">
+        <span id="clock-text" style="font-weight: 600;font-size: larger;">Loading...</span>
+        <span id="gmt-offset" style="font-size:smaller;"></span><br>
+        <span id="date"></span><br>
+    </div>
+</a>
+<script>
+    var serverTime = <?php echo $serverTime; ?> * 1000; // Server time in milliseconds
+    var clientOffset = new Date().getTime() - serverTime; // Calculate client's offset from the server
+    var gmtOffset = "<?php echo $gmtOffset; ?>"; // Server's GMT offset
+
+    function updateClock() {
+        var now = new Date().getTime() - clientOffset; // Adjust client time to server time
+        var date = new Date(now);
+
+        var day = date.getDate();
+        var month = date.toLocaleString('default', { month: 'short' });
+        var year = date.getFullYear();
+        var formattedDate = `${day} ${month}, ${year}`;
+
+        var hours = String(date.getHours()).padStart(2, '0');
+        var minutes = String(date.getMinutes()).padStart(2, '0');
+        var seconds = String(date.getSeconds()).padStart(2, '0');
+        var timeString = hours + ":" + minutes + ":" + seconds;
+
+        document.getElementById('clock-text').textContent = timeString;
+        document.getElementById('gmt-offset').textContent = '('+gmtOffset+')';
+        document.getElementById('date').textContent = formattedDate;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+</script>
+
 
 <?php
 if (isset($_GET['logout'])) {
