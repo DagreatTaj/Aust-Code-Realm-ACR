@@ -17,7 +17,6 @@ function submitCode(isRun) {
         languageId: languageId,
         languageName: languageName,
         code: code,
-        problem: problem,
         testcases: isRun ? [testcases[0]] : testcases, // Use only the first test case for the run action
         problemId: problemId,
         isRun: isRun
@@ -57,7 +56,7 @@ function submitCode(isRun) {
 
 function displayRunningMessage() {
     const resultDisplay = document.getElementById('resultDisplay');
-    resultDisplay.innerHTML = '<span class="spinner-border spinner-border-sm text-success" role="status" aria-hidden="true"></span><strong> Processing...</strong>';
+    resultDisplay.innerHTML = '<h4>Processing...</h4>';
 }
 
 function displayResult(data, isRun) {
@@ -67,6 +66,9 @@ function displayResult(data, isRun) {
     
     displayContent += `<p><strong>Status:</strong> <span style="color: ${statusColor};">${data.status}</span></p>`;
     
+    if (data.stdout) {
+        displayContent += `<p><strong>Stdout:</strong> ${data.stdout}</p>`;
+    }
     if (data.stderr) {
         displayContent += `<p><strong>Stderr:</strong> ${data.stderr}</p>`;
     }
