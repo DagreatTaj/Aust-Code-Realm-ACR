@@ -412,6 +412,8 @@ CREATE TABLE `ratinggraph` (
 INSERT INTO `ratinggraph` (`ID`, `UserID`, `PrevRating`, `NewRating`, `ChangedRating`, `ContestID`, `Date`) VALUES
 (55, 6, 0, 150, 150, 1, '2024-08-16'),
 (56, 7, 0, 50, 50, 1, '2024-08-16'),
+(57, 7, 0, 0, 0, NULL, '2024-07-08'),
+(58, 7, 50, 189, 139, 2, '2024-09-08');
 
 -- --------------------------------------------------------
 
@@ -964,19 +966,6 @@ ALTER TABLE `answers`
 ALTER TABLE `comments`
   ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`video_id`) REFERENCES `videos` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`UserID`);
-
---
--- Constraints for table `contestproblems`
---
-ALTER TABLE `contestproblems`
-  ADD CONSTRAINT `contestproblems_ibfk_1` FOREIGN KEY (`ContestID`) REFERENCES `contests` (`ContestID`),
-  ADD CONSTRAINT `contestproblems_ibfk_2` FOREIGN KEY (`ProblemID`) REFERENCES `problems` (`ProblemID`) ON DELETE CASCADE;
-
---
--- Constraints for table `contests`
---
-ALTER TABLE `contests`
-  ADD CONSTRAINT `contests_ibfk_1` FOREIGN KEY (`CreatorID`) REFERENCES `users` (`UserID`);
 
 --
 -- Constraints for table `contest_submissions`
